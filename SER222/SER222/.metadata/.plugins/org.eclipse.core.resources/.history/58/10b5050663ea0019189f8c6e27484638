@@ -1,0 +1,75 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+/**
+ * @author Chris Kraus
+ *
+ */
+public class BetterDiGraph implements EditableDiGraph {
+	
+	private int vertices;
+	private int edges;
+	private HashMap<Integer, HashSet<Integer>> adjacentElements;
+	
+	public BetterDiGraph() {
+		this.adjacentElements = new HashMap<>();
+	}
+
+	@Override
+	public void addEdge(int v, int w) {
+		addVertex(v); addVertex(w);
+	}
+
+	@Override
+	public void addVertex(int v) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Iterable<Integer> getAdj(int v) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getEdgeCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getIndegree(int v) throws NoSuchElementException {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getVertexCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void removeEdge(int v, int w) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeVertex(int v) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Iterable<Integer> vertices() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

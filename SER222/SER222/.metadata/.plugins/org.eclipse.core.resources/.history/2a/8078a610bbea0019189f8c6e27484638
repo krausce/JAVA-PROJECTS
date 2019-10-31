@@ -1,0 +1,26 @@
+
+/**
+ * @author chris
+ *
+ */
+public class IntuitiveTopological implements TopologicalSort {
+	
+	private BetterDiGraph diGraph;
+
+	public IntuitiveTopological(BetterDiGraph diGraph) {
+		this.diGraph = diGraph;
+	}
+
+	@Override
+	public Iterable<Integer> order() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isDAG() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

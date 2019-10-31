@@ -1,0 +1,4 @@
+
+public class QuadProbingHT<T1, T2> implements SymbolTable<Integer, Integer> {
+
+}

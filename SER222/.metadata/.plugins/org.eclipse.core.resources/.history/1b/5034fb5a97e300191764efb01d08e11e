@@ -1,0 +1,95 @@
+/**
+ * @author chris
+ *
+ */
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+
+public class TwoProbeChainHT<Key, Value> implements SymbolTable<Key, Value> {
+	
+	private class Entry{
+		public Key key;
+		public Value value;
+		public Entry(Key k, Value v) {
+			this.key = k;
+			this.value = v;
+		}
+	}
+	
+	private int N; // number of key-value pairs
+	private int M; // hash table size
+	private LinkedList<Entry>[] entries;
+
+	@Override
+	public void put(Key key, Value val) {
+		boolean isAdded = false;
+		
+		for(Entry entry: entries[hash(key)]) {
+			if(key.hashCode() == entry.key.hashCode()) {
+				entry.value = val;
+				isAdded = true;
+			}
+		}
+		
+		for(Entry entry: entries[hash2(key)]) {
+			if(key.hashCode() == entry.key.hashCode()) {
+				entry.value = val;
+				isAdded = true;
+			}
+		}
+		
+		if(!isAdded) {
+			if(entries[hash(key)].size() < entries[hash2(key)].size()) {
+				entries[hash(key)].add(new Entry(key, val));
+				N++;
+			}
+		}
+	}
+
+	private int hash2(Key key) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private int hash(Key key) {
+		return (key.hashCode() & 0x7f) % M;
+	}
+
+	@Override
+	public Integer get(Key key) {
+		return (((key.hashCode() & 0x7f)%M) * 31) % M;
+	}
+
+	@Override
+	public void delete(Key key) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public boolean contains(Key key) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Iterable<Key> keys() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

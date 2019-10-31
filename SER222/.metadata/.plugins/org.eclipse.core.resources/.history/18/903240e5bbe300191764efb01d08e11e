@@ -1,0 +1,97 @@
+import java.util.LinkedList;
+
+public class LinearProbingHT<Key, Value> implements SymbolTable<Key, Value> {
+	
+	private int N; // number of key-value pairs
+	private int M; // hash table size
+	private LinkedList<Entry>[] entries;
+
+	public LinearProbingHT() {
+		this(997);
+	}
+
+	@SuppressWarnings("unchecked")
+	public LinearProbingHT(int M) {
+		this.M = M;
+		this.N = 0;
+		
+		this.entries = new LinkedList[M];
+		
+		// for (int i = 0; i < M; i++)
+			// entries[i] = new LinkedList<Entry>();
+	}
+	
+	private int hash(Key key) {
+       return (key.hashCode() & 0x7fffffff) % M;
+    }
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public void put(Key key, Value val) {
+		if(!contains(key)) {
+			entries[hash(key)].add(new Entry(key, val));
+			N++;
+			return;
+		}
+		for(Entry entry: entries[hash(key)]) {
+			if(entry.key.equals(key)) {
+				entry.value = val;
+			}
+		}
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public Value get(Key key) {
+		if(contains(key)) {
+			for(Entry entry: entries[hash(key)]) {
+				if(entry.key.equals(key)) {
+					return (Value) entry.value;
+				}
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void delete(Key key) {
+		if(contains(key)) {
+			Entry target = null;
+			for(Entry entry: entries) {
+				if(entry.key == key) {
+					target = entry;
+					entries[hash(key)].remove(target);
+					N--;
+					return;
+				}
+				
+			}
+		}
+		
+	}
+
+	@Override
+	public boolean contains(Key key) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int size() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public Iterable<Key> keys() {
+		// TODO Auto-generated method stub
+		return null;
+	}	
+
+}

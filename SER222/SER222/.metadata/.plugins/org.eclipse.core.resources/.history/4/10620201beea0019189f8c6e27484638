@@ -1,0 +1,36 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @author chris
+ *
+ */
+public class IntuitiveTopological implements TopologicalSort {
+	
+	private BetterDiGraph diGraph;
+
+	public IntuitiveTopological(BetterDiGraph diGraph) {
+		this.diGraph = diGraph;
+	}
+
+	@Override
+	public Iterable<Integer> order() {
+		// ArrayList where the toplogical order will be stored
+		ArrayList<Integer> order = new ArrayList();
+		
+		// Map which determines if a vertex has been visited
+		Map<Integer, Boolean> visited = new HashMap<>();
+		for(Integer vertex: this.diGraph.vertices()) {
+			visited.put(vertex, false);
+		}
+		return order;
+	}
+
+	@Override
+	public boolean isDAG() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}

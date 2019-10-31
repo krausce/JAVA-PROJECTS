@@ -1,0 +1,72 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author Chris Kraus
+ *
+ */
+public class IntuitiveTopological implements TopologicalSort {
+	
+	private BetterDiGraph diGraph;
+
+	public IntuitiveTopological(BetterDiGraph diGraph) {
+		this.diGraph = diGraph;
+	}
+	
+	@Override
+	public Iterable<Integer> order() {
+		ArrayList<Integer> tSort = new ArrayList();
+		if(this.isDAG()) {
+			while(this.diGraph.getVertexCount() > 0) {
+				for(Integer v: this.diGraph.vertices()) {
+					if(this.diGraph.getIndegree(v) == 0) {
+						tSort.add(v);
+						this.diGraph.removeVertex(v);
+					}
+				}
+			}
+		}
+		return tSort;
+	}
+
+	@Override
+	public boolean isDAG() {
+		return !isCyclic();
+	}
+	
+	private boolean isCyclic() {
+		// Mark all of the vertices which haven't been visited that are also not
+		// already on the stack.
+		
+		Map<Integer, Boolean> visited = new HashMap<Integer, Boolean>();
+		Map<Integer, Boolean> stack = new HashMap<Integer, Boolean>();
+		
+		for(Integer v: this.diGraph.vertices())
+			if(visitedElements(visited, stack, v)) {
+				return true;
+			}
+		return false;
+	}
+	
+	private boolean visitedElements(Map<Integer, Boolean> visited, Map<Integer, Boolean> stack, int v) {
+		
+		if(stack.containsKey(v))
+			return true;
+		
+		if(visited.containsKey(v))
+			return false;
+		
+		visited.put(v,  true);
+		stack.put(v, true);
+		Iterable<Integer> descendants = this.diGraph.getAdj(v);
+		for(Integer d: descendants) {
+			if(visitedElements(visited, stack, d))
+				return true;
+		}
+		stack.put(v, false);
+		return false;
+	}
+
+}

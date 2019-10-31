@@ -1,0 +1,125 @@
+/**
+ * @author chris
+ *
+ */
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+
+public class TwoProbeChainHT<Key, Value> implements SymbolTable<Key, Value> {
+	
+	private class Entry{
+		public Key key;
+		public Value value;
+		public Entry(Key k, Value v) {
+			this.key = k;
+			this.value = v;
+		}
+	}
+	
+	private int N; // number of key-value pairs
+	private int M; // hash table size
+	private LinkedList<Entry>[] entries;
+
+	@Override
+	public void put(Key key, Value val) {
+		boolean isAdded = false;
+		
+		for(Entry entry: entries[hash(key)]) {
+			if(key.hashCode() == entry.key.hashCode()) {
+				entry.value = val;
+				isAdded = true;
+			}
+		}
+		
+		for(Entry entry: entries[hash2(key)]) {
+			if(key.hashCode() == entry.key.hashCode()) {
+				entry.value = val;
+				isAdded = true;
+			}
+		}
+		
+		if(!isAdded) {
+			if(entries[hash(key)].size() < entries[hash2(key)].size()) {
+				entries[hash(key)].add(new Entry(key, val));
+				N++;
+			}
+		} else {
+			entries[hash2(key)].add(new Entry(key, val));
+            N++;
+		}
+	}
+	
+	private int hash(Key key) {
+		return (key.hashCode() & 0x7f) % M;
+	}
+
+	private int hash2(Key key) {
+		return (((key.hashCode() & 0x7f)%M) * 31) % M;
+	}
+
+	@Override
+	public Value get(Key key) {
+		for(Entry entry: entries[hash(key)]) {
+			if(key.hashCode() == entry.hashCode()) {
+				return entry.value;
+			}
+		}
+		for(Entry entry: entries[hash2(key)]) {
+			if(key.hashCode() == entry.hashCode()) {
+				return entry.value;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void delete(Key key) {
+		if(contains(key)) {
+			Entry target = null;
+			
+			for(Entry entry: entries[hash(key)]) {
+				if(entry.key == key) {
+					target = entry;
+					entries[hash(key)].remove(target);
+					N--;
+					return;
+				}
+				
+			}
+			
+			for(Entry entry: entries[hash2(key)]) {
+				if(entry.key == key) {
+					target = entry;
+					entries[hash2(key)].remove(target);
+					N--;
+					return;
+				}
+				
+			}
+		}
+	}
+
+	@Override
+	public boolean contains(Key key) {
+		return get(key) != null;
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return N == 0;
+	}
+
+	@Override
+	public int size() {
+		return N;
+	}
+
+	@Override
+	public Iterable<Key> keys() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

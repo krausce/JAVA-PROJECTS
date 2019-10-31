@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>120</x>
+      <y>240</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>DList&lt;E&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>0</x>
+      <y>0</y>
+      <w>180</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Main
+--
+-mView: View
+--
++main(args: String[]): void
++exit(): void
+-getView(): View
+-run(): void
+-setView(pView: View): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>550</x>
+      <y>300</y>
+      <w>220</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>Tokenizer
+--
+_-STATE_DOUBLE = 0: final int_
+_-STATE_END = 1: final int_
+_-STATE_START = 2: final int_
+-mIndex: int
+-mString: String
+--
++Tokenizer(pString: String): &lt;&lt;ctor&gt;&gt;
+#getIndex(): int
+#getString(): String
++nextToken(): Token
+-nextChar(): Character
+-peekNext(): Character
+#setIndex(pIndex: int): void
+#getString(pString: String): void
+-ungetChar(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>230</x>
+      <y>0</y>
+      <w>290</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>View
+--
+_+FRAME_WIDTH = 500: final int_
+_+FRAME_HEIGHT = 180: final int_
+-mClearButton: JButton
+-mEvalButton: JButton
+-mInputText: JTextField
+-mExitButton: JButton
+-mMain: Main
+-mResultLabel: JLabel
+--
++View(Main pMain): &lt;&lt;ctor&gt;&gt;
++actionPerformed(pEvent: ActionEvent): void
+-clear(): void
+-evaluate(): void
++messageBox(pMessage: String): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>10</x>
+      <y>570</y>
+      <w>540</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>Expression
+--
+-mTokenQueue: Queue&lt;Token&gt;
+--
++Expression(pExprStr: String): &lt;&lt;ctor&gt;&gt;
++evaluate(): Double
+#getTokenQueue(): Queue&lt;Token&gt;
+-keepEvaluating(pOperatorStack: Stack&lt;Operator&gt;, pOperator:Operator): boolean
+-negationCheck(pToken: Token, pPrevToken: Token): Token
+#setTokenQueue(pTokenQueue: Queue&lt;Token&gt;): void
+-topEval(pOperatorStack: Stack&lt;Operator&gt;, pOperandStack: Stack&lt;Operand&gt;): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>0</x>
+      <y>350</y>
+      <w>170</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Queue
+--
+-mList: DList&lt;E&gt;
+--
++Queue(): &lt;&lt;ctor&gt;&gt;
++clear(): void
++dequeue(): E
++enqueue(pData: E): void
+#getList(): DList&lt;E&gt;
++isEmpty(): boolean
++peek(): E
+#setList(pList: DList): void
++toString(): String
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>180</x>
+      <y>350</y>
+      <w>200</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>Stack
+--
+-mList: DList&lt;E&gt;
+--
++Stack(): &lt;&lt;ctor&gt;&gt;
++clear(): void
+#getList(): DList&lt;E&gt;
++isEmpty(): boolean
++peek(): E
++pop(): E
++push(pData: E): void
+#setList(pList: DList&lt;E&gt;): void
++toString(): String
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>150</x>
+      <y>20</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;30;80;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>150</x>
+      <y>40</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80;30;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>40</x>
+      <y>260</y>
+      <w>150</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;90;30;50;130;50;130;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>170</x>
+      <y>260</y>
+      <w>130</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>110;90;110;50;30;50;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>40</x>
+      <y>500</y>
+      <w>50</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
+    <additional_attributes>30;70;30;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>260</x>
+      <y>500</y>
+      <w>50</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;70</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>400</x>
+      <y>350</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>/Token/
+--
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>430</x>
+      <y>370</y>
+      <w>50</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>30;30;30;200</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>520</x>
+      <y>510</y>
+      <w>264</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+                 &lt;&lt;calls nextToken()&gt;&gt;</panel_attributes>
+    <additional_attributes>30;110;140;110;140;30</additional_attributes>
+  </element>
+</diagram>

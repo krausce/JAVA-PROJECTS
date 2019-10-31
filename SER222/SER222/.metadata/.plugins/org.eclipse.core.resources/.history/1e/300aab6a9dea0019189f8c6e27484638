@@ -1,0 +1,59 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+/**
+ * Program for generating kanji component dependency order via topological sort.
+ * 
+ * @author Chris Kraus, Acuna
+ * @version 1.0
+ */
+public class KrausMain {
+    
+    /**
+     * Entry point for testing.
+     * @param args the command line arguments
+     * @throws FileNotFoundException 
+     * @throws UnsupportedEncodingException 
+     */
+    public static void main(String[] args) throws UnsupportedEncodingException, FileNotFoundException {
+        //TODO: implement this 
+
+        //Freebie: this is one way to load the UTF8 formated character data.
+        BufferedReader indexReader = new BufferedReader(new InputStreamReader(new FileInputStream(new File("data-kanji.txt")), "UTF8"));
+        BufferedReader mapReader = new BufferedReader(new InputStreamReader(new FileInputStream(new File("data-components.txt")), "UTF8"));
+        HashMap<Integer, String> charMap = new HashMap<>();
+        BetterDiGraph diGraph = new BetterDiGraph();
+        String lineOfText;
+        
+        
+        try {
+			while((lineOfText = indexReader.readLine()) != null) {
+				while(lineOfText.contains("#")) {
+					lineOfText = indexReader.readLine();
+				}
+				String[] chars = lineOfText.split("\t");
+				charMap.put(Integer.parseInt(chars[0]), chars[1]);
+				diGraph.addVertex(Integer.parseInt(chars[0]));
+			}
+			while((lineOfText = mapReader.readLine()) != null) {
+				while(lineOfText.contains("#")) {
+					lineOfText = mapReader.readLine();
+				}
+				String[] nums = lineOfText.split("\t");
+				diGraph.addEdge(Integer.parseInt(nums[0]), Integer.parseInt(nums[1]));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.out.println(charMap);
+        System.out.println(diGraph.vertices());
+    }
+}

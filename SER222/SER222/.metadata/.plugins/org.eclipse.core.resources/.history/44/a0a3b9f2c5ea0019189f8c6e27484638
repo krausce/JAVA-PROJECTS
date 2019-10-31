@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Stack;
+
+/**
+ * @author chris
+ *
+ */
+public class IntuitiveTopological implements TopologicalSort {
+	
+	private BetterDiGraph diGraph;
+
+	public IntuitiveTopological(BetterDiGraph diGraph) {
+		this.diGraph = diGraph;
+	}
+
+	@Override
+	public Iterable<Integer> order() {
+		
+	}
+
+	@Override
+	public boolean isDAG() {
+		// Map indicating if a node is visited (has been processed by the algorithm)
+	    Map<Integer, Boolean> visited = new HashMap<>();
+	    boolean cyclic = true;
+	    for(Integer v: this.diGraph.vertices()) {
+	    	cyclic = isCyclic(v, visited);
+	    }
+		
+		return cyclic;
+	}
+
+	private boolean isCyclic(Integer v, Map<Integer, Boolean> visited) {
+		// Mark the current vertex as visited
+		visited.put(v, true);
+		for(Integer i: this.diGraph.getAdj(v)) {
+			if(!visited.containsKey(i)) {
+				return isCyclic(i, visited);
+			}
+			return true;
+		}
+		
+		return false;
+	}
+
+}

@@ -1,0 +1,38 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * @author Chris Kraus
+ *
+ */
+public class IntuitiveTopological implements TopologicalSort {
+	
+	private BetterDiGraph diGraph;
+
+	public IntuitiveTopological(BetterDiGraph diGraph) {
+		this.diGraph = diGraph;
+	}
+	
+	@Override
+	public Iterable<Integer> order() {
+		// Iterable where the topological order is stored
+		ArrayList<Integer> order = new ArrayList();
+		return order;
+	}
+
+	@Override
+	public boolean isDAG() {
+		return !isCyclic();
+	}
+	
+	private boolean isCyclic() {
+		
+	}
+	
+	private boolean visitedElements(Map<Integer, Boolean> visited, Map<Integer, Boolean> stack, int v) {
+		
+	}
+
+}

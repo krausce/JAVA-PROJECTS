@@ -1,0 +1,67 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Description: Implements topographical sort through a HashMap rather than LinkedList
+ * or other methods. Results in more efficient execution.
+ * 
+ * @author Chris Kraus
+ * 
+ * @version: 1.0
+ */
+public class IntuitiveTopological implements TopologicalSort {
+	
+	private BetterDiGraph diGraph;
+
+	/**
+	 * Default constructor.
+	 * 
+	 * @param diGraph
+	 */
+	public IntuitiveTopological(BetterDiGraph diGraph) {
+		this.diGraph = diGraph;
+	}
+
+	@Override
+	public Iterable<Integer> order() {
+		ArrayList<Integer> order = new ArrayList<Integer>();
+		if(this.isDAG()) {
+			while(this.diGraph.getVertexCount() > 0) {
+				for(Integer v: this.diGraph.vertices()) {
+					if(this.diGraph.getIndegree(v) == 0) {
+						order.add(v);
+						this.diGraph.removeVertex(v);
+					}
+				}
+			}
+		}
+		return order;
+	}
+
+	@Override
+	public boolean isDAG() {
+		// Map indicating if a node is visited (has been processed by the algorithm)
+	    Map<Integer, Boolean> visited = new HashMap<>();
+	    boolean cyclic = true;
+	    for(Integer v: this.diGraph.vertices()) {
+	    	cyclic = isCyclic(v, visited);
+	    }
+		
+		return !cyclic;
+	}
+
+	private boolean isCyclic(Integer v, Map<Integer, Boolean> visited) {
+		// Mark the current vertex as visited
+		visited.put(v, true);
+		for(Integer i: this.diGraph.getAdj(v)) {
+			if(!visited.containsKey(i)) {
+				return isCyclic(i, visited);
+			}
+			return true;
+		}
+		
+		return false;
+	}
+
+}

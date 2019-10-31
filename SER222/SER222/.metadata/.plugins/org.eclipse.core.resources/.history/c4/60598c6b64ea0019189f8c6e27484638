@@ -1,0 +1,97 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+
+/**
+ * @author Chris Kraus
+ *
+ */
+public class BetterDiGraph implements EditableDiGraph {
+	
+	private int vertices;
+	private int edges;
+	private HashMap<Integer, HashSet<Integer>> adjacentElements;
+	
+	public BetterDiGraph() {
+		this.adjacentElements = new HashMap<>();
+		this.vertices = 0;
+		this.edges = 0;
+	}
+
+	@Override
+	public void addEdge(int v, int w) {
+		addVertex(v); addVertex(w);
+		if(this.adjacentElements.containsKey(v)) {
+			if(!this.adjacentElements.get(v).contains(w)) {
+				this.adjacentElements.get(v).add(w);
+				this.edges++;
+			}
+		}
+	}
+
+	@Override
+	public void addVertex(int v) {
+		if(!this.adjacentElements.containsKey(v)) {
+			this.adjacentElements.put(v, new HashSet<>());
+			this.vertices++;
+		}
+	}
+
+	@Override
+	public Iterable<Integer> getAdj(int v) {
+		return this.adjacentElements.get(v);
+	}
+
+	@Override
+	public int getEdgeCount() {
+		return this.edges;
+	}
+
+	@Override
+	public int getIndegree(int v) throws NoSuchElementException {
+		if(!containsVertex(v)) {
+			throw new NoSuchElementException();
+		}
+		int numInHash = 0;
+		for(Integer out: this.adjacentElements.keySet()) {
+			for(Integer i: this.adjacentElements.get(out)) {
+				if(i.equals(v)) {
+					numInHash++;
+				}
+			}
+		}
+		return numInHash;
+	}
+
+	private boolean containsVertex(int v) {
+		return this.adjacentElements.containsKey(v);
+	}
+
+	@Override
+	public int getVertexCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void removeEdge(int v, int w) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void removeVertex(int v) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public Iterable<Integer> vertices() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
